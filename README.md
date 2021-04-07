@@ -1,4 +1,4 @@
-[![MIT License][license-shield]][license-url]
+[![MIT License][license-shield]][https://github.com/GennadiyK/collapse-requestAnimationFrame/blob/main/LICENSE]
 
 # Collapse with requestAnimationFrame
 
