@@ -1,3 +1,4 @@
+![](Collapse.gif)
 
 # Collapse with requestAnimationFrame
 
