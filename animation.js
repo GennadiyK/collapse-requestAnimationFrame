@@ -6,8 +6,16 @@ const el = document.querySelector(".collapse");
 const btn = document.querySelector(".btn-collapse");
 const btnText = document.createElement('span')
 
+/**
+ * Getting text for btn according collapsed value.
+ * 
+ * @returns collapsed or expanded
+ */
 const getBtnText = () => (collapsed ? "collapsed" : "expanded");
 
+/**
+ * Init state of the Collapse element.
+ */
 (function init() {
   height = collapsed ? 0 : el.scrollHeight;
   btnText.innerHTML = getBtnText();
@@ -17,11 +25,19 @@ const getBtnText = () => (collapsed ? "collapsed" : "expanded");
   el.style.overflow = collapsed ? "" : "initial";
 })();
 
+/**
+ * Collapse / expand element on click.
+ */
 btn.addEventListener("click", () => {
   toggleCollapsed(collapsed);
   showHide();
 });
 
+/**
+ * Changing className of the btn.
+ * 
+ * @param {*} className 
+ */
 function toggleClass(className) {
   if(collapsed) {
     btn.classList.add(className)
@@ -30,10 +46,18 @@ function toggleClass(className) {
   }
 }
 
+/**
+ * Toggle collapsed value.
+ * 
+ * @returns collapsed
+ */
 function toggleCollapsed() {
   return (collapsed = !collapsed);
 }
 
+/**
+ * Collapse / expand element.
+ */
 function showHide() {
   btnText.innerHTML = getBtnText();
   btn.classList.toggle('collapsed')
@@ -45,17 +69,32 @@ function showHide() {
   }
 }
 
+/**
+ * Increasing height of the Collapse element.
+ * 
+ * @param {*} el 
+ * @param {*} progress 
+ */
 function incrHeigh(el, progress) {
   height = progress * el.scrollHeight;
   el.style.height = `${height}px`;
 }
 
+/**
+ * Decrementing height of the Collapse element.
+ * 
+ * @param {*} el 
+ * @param {*} progress 
+ */
 function decrHeight(el, progress) { 
   height = el.scrollHeight - progress * el.scrollHeight;
   el.style.height = `${height}px`;
   el.style.overflow = "hidden";
 }
 
+/**
+ * Expanding Collapse element.
+ */
 function slideDown() {
   const start = performance.now();
 
@@ -76,6 +115,9 @@ function slideDown() {
   });
 }
 
+/**
+ * Collapsing element.
+ */
 function slideUp() {
   const start = performance.now();
   requestAnimationFrame(function animate(time) {
