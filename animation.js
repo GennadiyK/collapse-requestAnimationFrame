@@ -75,7 +75,7 @@ function showHide() {
  * @param {*} el 
  * @param {*} progress 
  */
-function incrHeigh(el, progress) {
+function incrHeight(el, progress) {
   height = progress * el.scrollHeight;
   el.style.height = `${height}px`;
 }
@@ -104,7 +104,7 @@ function slideDown() {
     const process = Math.min(relativeProgress, 1);
  
     if (process < 1) {
-      incrHeigh(el, process);
+      incrHeight(el, process);
       requestAnimationFrame(animate);
     }
 
