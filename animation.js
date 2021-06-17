@@ -48,8 +48,9 @@ function toggleCollapsed(v) {
 }
 
 /**
- * Collapse / expand element.
- * @param {*} element
+ *  Collapse / expand element.
+ * @param {*} element 
+ * @param {*} c 
  */
 function showHide(element, c) {
   toggleClass(element, "collapsed", c);
