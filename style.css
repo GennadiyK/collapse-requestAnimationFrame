@@ -15,9 +15,14 @@
   width: 100%;
 }
 
+.btn-collapse span {
+  pointer-events: none;
+}
+
 .icon {
   display: inline-block;
-  transform: rotate(180deg);  
+  transform: rotate(180deg);
+  pointer-events: none;
 }
 
 .collapsed .icon {

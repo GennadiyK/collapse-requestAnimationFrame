@@ -1,68 +1,60 @@
 const duration = 200;
-let collapsed = true;
-let height = null;
+let isCollapsed = true;
 
 const el = document.querySelector(".collapse");
 const btn = document.querySelector(".btn-collapse");
-const btnText = document.createElement('span')
 
-/**
- * Getting text for btn according collapsed value.
- * 
- * @returns collapsed or expanded
- */
-const getBtnText = () => (collapsed ? "collapsed" : "expanded");
+const btnTextEl = document.createElement("span");
+const getBtnText = (с) => (с ? "collapsed" : "expanded");
 
-/**
- * Init state of the Collapse element.
- */
-(function init() {
-  height = collapsed ? 0 : el.scrollHeight;
-  btnText.innerHTML = getBtnText();
-  btn.appendChild(btnText)
-  toggleClass('collapsed')
-  el.style.height = `${height}px`;
-  el.style.overflow = collapsed ? "" : "initial";
-})();
+btnTextEl.innerHTML = getBtnText(isCollapsed);
+btn.appendChild(btnTextEl);
+toggleClass(btn, "collapsed", isCollapsed);
 
 /**
  * Collapse / expand element on click.
  */
-btn.addEventListener("click", () => {
-  toggleCollapsed(collapsed);
-  showHide();
+btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  isCollapsed = toggleCollapsed(isCollapsed);
+  btnTextEl.innerHTML = getBtnText(isCollapsed);
+
+  toggleClass(e.target, "collapsed", isCollapsed);
+  showHide(e.target);
 });
 
 /**
  * Changing className of the btn.
- * 
- * @param {*} className 
+ * @param {*} element
+ * @param {*} className
+ * @param {*} с
  */
-function toggleClass(className) {
-  if(collapsed) {
-    btn.classList.add(className)
+function toggleClass(element, className, с) {
+  if (с) {
+    element.classList.add(className);
   } else {
-    btn.classList.remove(className)
+    element.classList.remove(className);
   }
 }
 
 /**
  * Toggle collapsed value.
- * 
- * @returns collapsed
+ * @param {*} v
+ * @returns
  */
-function toggleCollapsed() {
-  return (collapsed = !collapsed);
+function toggleCollapsed(v) {
+  let val = v;
+  return (() => (val = !val))();
 }
 
 /**
  * Collapse / expand element.
+ * @param {*} element
  */
-function showHide() {
-  btnText.innerHTML = getBtnText();
-  btn.classList.toggle('collapsed')
+function showHide(element) {
+  toggleClass(element, "collapsed", isCollapsed);
 
-  if (collapsed) {
+  if (isCollapsed) {
     slideUp();
   } else {
     slideDown();
@@ -71,24 +63,22 @@ function showHide() {
 
 /**
  * Increasing height of the Collapse element.
- * 
- * @param {*} el 
- * @param {*} progress 
+ *
+ * @param {*} el
+ * @param {*} progress
  */
-function incrHeigh(el, progress) {
-  height = progress * el.scrollHeight;
-  el.style.height = `${height}px`;
+function incrementHeight(el, progress) {
+  el.style.height = `${progress * el.scrollHeight}px`;
 }
 
 /**
  * Decrementing height of the Collapse element.
- * 
- * @param {*} el 
- * @param {*} progress 
+ *
+ * @param {*} el
+ * @param {*} progress
  */
-function decrHeight(el, progress) { 
-  height = el.scrollHeight - progress * el.scrollHeight;
-  el.style.height = `${height}px`;
+function decrementHeight(el, progress) {
+  el.style.height = `${el.scrollHeight - progress * el.scrollHeight}px`;
   el.style.overflow = "hidden";
 }
 
@@ -102,9 +92,9 @@ function slideDown() {
     const runtime = time - start;
     const relativeProgress = runtime / duration;
     const process = Math.min(relativeProgress, 1);
- 
+
     if (process < 1) {
-      incrHeigh(el, process);
+      incrementHeight(el, process);
       requestAnimationFrame(animate);
     }
 
@@ -125,7 +115,7 @@ function slideUp() {
     const relativeProgress = runtime / duration;
     const process = Math.min(relativeProgress, 1);
     if (process < 1) {
-      decrHeight(el, process);
+      decrementHeight(el, process);
       requestAnimationFrame(animate);
     }
     if (process === 1) {
