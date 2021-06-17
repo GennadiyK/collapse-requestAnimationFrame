@@ -20,7 +20,7 @@ btn.addEventListener("click", (e) => {
   btnTextEl.innerHTML = getBtnText(isCollapsed);
 
   toggleClass(e.target, "collapsed", isCollapsed);
-  showHide(e.target);
+  showHide(e.target, isCollapsed);
 });
 
 /**
@@ -51,10 +51,10 @@ function toggleCollapsed(v) {
  * Collapse / expand element.
  * @param {*} element
  */
-function showHide(element) {
-  toggleClass(element, "collapsed", isCollapsed);
+function showHide(element, c) {
+  toggleClass(element, "collapsed", c);
 
-  if (isCollapsed) {
+  if (c) {
     slideUp();
   } else {
     slideDown();
