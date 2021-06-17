@@ -43,8 +43,7 @@ function toggleClass(element, className, с) {
  * @returns
  */
 function toggleCollapsed(v) {
-  let val = v;
-  return (() => (val = !val))();
+  return !v
 }
 
 /**
